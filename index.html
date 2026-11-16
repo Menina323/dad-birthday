@@ -1,0 +1,960 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#141F2B">
+<meta property="og:type" content="website">
+<meta property="og:title" content="老爸，生日快乐">
+<meta property="og:description" content="四十一岁。十四年节拍，八年守摊，还有一下没敲过的鼓。">
+<meta property="og:image" content="https://menina323.github.io/dad-birthday/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="写给老爸李新顺的四十一岁：十四年节拍、八年守摊、一下鼓。">
+<title>老爸，生日快乐</title>
+<link rel="preload" href="fonts/sans-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/sans-bold.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Hallmark · v2.0.0 · shape: Drum chart / four-beat grid, dealt by hand · genre editorial · stamp 2026-11-16
+   critique: night-blue street under one lamp; every number sits on a four-beat bar
+   waive 67: the mono labels are the material here (drum chart), tracked by design
+   answered 2b: no gradient text; gold is flat and appears only on what matters */
+
+@font-face{
+  font-family:"DSH Sans";
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url("fonts/sans-regular.woff2") format("woff2");
+}
+@font-face{
+  font-family:"DSH Sans";
+  font-style:normal;
+  font-weight:700;
+  font-display:swap;
+  src:url("fonts/sans-bold.woff2") format("woff2");
+}
+
+:root{
+  /* 夜蓝：街面在灯下的颜色 */
+  --night:        #141F2B;
+  --night-2:      #1B2A3A;
+  --night-3:      #24384C;
+  --night-4:      #2E465C;
+
+  /* 字 */
+  --chalk:        #F0EADF;
+  --chalk-2:      #C9D2DC;
+  --chalk-3:      #8DA0B4;
+
+  /* 铜：镲片、月饼的油光 */
+  --brass:        #C8964A;
+  --brass-2:      #E0B873;
+  --brass-dim:    #8A6836;
+
+  /* 漆红：只用在最后一处 */
+  --lacquer:      #A83E2E;
+  --lacquer-lt:   #C4553F;
+
+  /* 灯 */
+  --lamp:         rgba(255,196,120,.14);
+  --lamp-2:       rgba(255,180,96,.07);
+
+  /* 线 */
+  --line:         rgba(201,210,220,.16);
+  --line-2:       rgba(201,210,220,.30);
+  --line-3:       rgba(201,210,220,.06);
+
+  /* 台面与木质 */
+  --wood-a:       #3A2E24;
+  --wood-b:       var(--counter-b);
+  --wood-c:       #2B2119;
+  --wood-d:       var(--counter-c);
+  --pad-a:        #46372A;
+  --pad-b:        #2E241B;
+  --pad-c:        #1D1712;
+  --wood-edge:    rgba(224,184,115,.34);
+  --wood-edge-2:  rgba(224,184,115,.18);
+  --wood-edge-3:  rgba(232,211,168,.30);
+
+  /* 鼓槌：白蜡木 */
+  --stick-a:      #F2E0BE;
+  --stick-b:      #E8D3A8;
+  --stick-c:      #B08B52;
+  --stick-d:      var(--stk-c);
+
+  /* 灯 */
+  --lamp-a:       rgba(255,198,124,.26);
+  --lamp-b:       rgba(255,206,142,.14);
+
+  /* 暗 */
+  --dark-a:       rgba(0,0,0,.70);
+  --dark-b:       rgba(0,0,0,.78);
+
+  /* 选中 */
+  --sel:          rgba(200,150,74,.30);
+
+  /* 摊位场景 */
+  --scene-a:      #101A24;
+  --shade-a:      #6B4E24;
+  --counter-a:    #3B3027;
+  --counter-b:    #241C16;
+  --counter-c:    var(--table-c);
+  --stool-a:      #33281F;
+  --stool-b:      #1F1812;
+  --shade-sh:     rgba(0,0,0,.60);
+  --goods-sh:     rgba(0,0,0,.22);
+
+  /* 阴影 */
+  --sh-drum:      0 26px 50px -22px rgba(0,0,0,.66);
+  --sh-inner:     inset 0 2px 6px var(--stk-sh), inset 0 -1px 0 rgba(255,255,255,.06);
+
+  --font-sans: "DSH Sans","Noto Sans SC","PingFang SC","Microsoft YaHei","微软雅黑",system-ui,sans-serif;
+  --font-mono: "Cascadia Mono","SF Mono","Menlo","Consolas",ui-monospace,monospace;
+
+  --ease:      cubic-bezier(.16,1,.3,1);
+  --ease-soft: cubic-bezier(.22,.61,.36,1);
+
+  --s-1:8px;  --s-2:16px; --s-3:24px; --s-4:32px;
+  --s-5:48px; --s-6:64px; --s-7:96px; --s-8:128px;
+  --gutter:20px;
+  --maxw:1080px;
+
+  /* 摊位场景（补） */
+  --scene-a:      #101A24;
+  --scene-d:      #0D1620;
+  --cone-2:       rgba(255,198,124,.05);
+  --bulb-hi:      #FFF3D6;
+  --bulb-glow:    rgba(255,198,124,.36);
+  --table-a:      #4A3A2B;
+  --table-b:      #2C2119;
+  --table-c:      #1A1410;
+  --table-edge:   rgba(224,184,115,.40);
+  --cloth-a:      rgba(168,62,46,.20);
+  --cloth-b:      rgba(168,62,46,.06);
+  --goods-sh-3:   rgba(0,0,0,.30);
+  --goods-hi-2:   rgba(255,232,190,.20);
+  --goods-line-2: rgba(0,0,0,.18);
+  /* 鼓槌与台面（补） */
+  --stk-a:        #EFDCB6;
+  --stk-b:        #C9A96E;
+  --stk-c:        #9C7C48;
+  --stk-hi:       #FBF0D8;
+  --stk-mid:      #E0C48E;
+  --stk-lo:       #A98449;
+  --stk-sh:       rgba(0,0,0,.45);
+  --surf-a:       #5A4632;
+  --surf-b:       #3A2C1F;
+  --surf-c:       #241A12;
+  --surf-sh:      rgba(0,0,0,.85);
+  --surf-hi:      rgba(240,220,182,.30);
+  --surf-grain:   rgba(255,226,180,.05);
+  --surf-ring:    rgba(200,150,74,.20);}
+
+@media (min-width:640px){ :root{ --gutter:32px; } }
+@media (min-width:960px){ :root{ --gutter:48px; --s-7:128px; --s-8:176px; } }
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{
+  -webkit-text-size-adjust:100%;
+  overflow-x:clip;
+  scroll-behavior:smooth;
+}
+body{
+  margin:0;
+  overflow-x:clip;
+  background:var(--night);
+  color:var(--chalk);
+  font-family:var(--font-sans);
+  font-size:clamp(15px,1.05vw + 12px,17px);
+  line-height:1.85;
+  letter-spacing:.01em;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* 街灯：左上暖、右下冷 */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    radial-gradient(46% 38% at 16% 0%, var(--lamp), transparent 68%),
+    radial-gradient(70% 50% at 88% 108%, var(--lamp-2), transparent 66%);
+}
+
+/* 细颗粒，压住深色的闷 */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.32;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+  mix-blend-mode:screen;
+}
+
+::selection{ background:var(--sel); color:var(--chalk); }
+:focus-visible{ outline:2px solid var(--brass); outline-offset:4px; border-radius:2px; }
+
+main{
+  position:relative;
+  z-index:2;
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:0 var(--gutter);
+}
+
+section{ padding-block:var(--s-7); }
+
+h1,h2,h3,p,figure{ margin:0; }
+h1,h2,h3{ text-wrap:balance; }
+
+h2{
+  font-weight:700;
+  font-size:clamp(1.35rem,2.4vw + .7rem,2.1rem);
+  line-height:1.35;
+  letter-spacing:.01em;
+}
+
+.lede{
+  color:var(--chalk-2);
+  font-size:.95rem;
+  line-height:1.95;
+  letter-spacing:.01em;
+}
+
+/* ---------- 一 · 题 ---------- */
+.hero{
+  min-height:100svh;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:var(--s-6);
+  padding-block:var(--s-6);
+  position:relative;
+}
+
+.hero__left{ min-width:0; }
+
+/* 四拍格线：整页的结构母题 */
+.beats{
+  display:flex;
+  align-items:flex-end;
+  gap:var(--s-2);
+  height:56px;
+  margin-bottom:var(--s-6);
+}
+.beats i{
+  display:block;
+  width:1px;
+  height:26px;
+  background:var(--line-2);
+}
+.beats i:nth-child(4n+1){ height:44px; background:var(--brass); }
+.beats i:nth-child(2){ height:34px; }
+.beats i:nth-child(3){ height:30px; }
+
+.hero__sig{
+  font-family:var(--font-mono);
+  font-size:.8rem;
+  color:var(--brass);
+  letter-spacing:.16em;
+  margin-bottom:var(--s-4);
+}
+
+h1{
+  font-weight:700;
+  font-size:clamp(2.4rem,6vw + .8rem,5rem);
+  line-height:1.02;
+  letter-spacing:-.02em;
+  color:var(--chalk);
+  margin:0;
+}
+h1 em{
+  font-style:normal;
+  font-weight:700;
+}
+
+.hero__who{
+  margin-top:var(--s-4);
+  display:flex;
+  gap:var(--s-3);
+  flex-wrap:wrap;
+  color:var(--chalk-3);
+  font-size:.9rem;
+  letter-spacing:.02em;
+}
+.hero__who span{ display:inline-flex; align-items:center; gap:.5em; }
+.hero__who span + span::before{
+  content:"";
+  width:1px;
+  height:1em;
+  background:var(--line-2);
+  margin-right:.6em;
+}
+
+/* 右侧：节拍器指针 */
+.metro{
+  width:clamp(90px,13vw,140px);
+  height:clamp(150px,22vw,230px);
+  border:1px solid var(--line-2);
+  border-radius:6px 6px 10px 10px;
+  background:linear-gradient(180deg,var(--night-3),var(--night-2));
+  position:relative;
+  display:grid;
+  place-items:center;
+  box-shadow:var(--sh-inner);
+}
+.metro__arm{
+  position:absolute;
+  bottom:18%;
+  left:50%;
+  width:2px;
+  height:64%;
+  background:linear-gradient(180deg,var(--brass-2),var(--brass-dim));
+  transform-origin:bottom center;
+  transform:translateX(-50%) rotate(-11deg);
+}
+.metro__bob{
+  position:absolute;
+  width:16px; height:16px;
+  left:50%;
+  margin-left:-8px;
+  border-radius:2px;
+  background:var(--brass);
+  transition:none;
+}
+.metro__base{
+  position:absolute;
+  bottom:0; left:0; right:0;
+  height:14%;
+  border-top:1px solid var(--line-2);
+  background:linear-gradient(180deg,var(--night-3),var(--night));
+  border-radius:0 0 10px 10px;
+}
+
+/* ---------- 二 · 节拍 ---------- */
+.bars{ position:relative; }
+
+.bars__head{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:var(--s-3);
+  flex-wrap:wrap;
+  margin-bottom:var(--s-6);
+}
+
+.score{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--s-2);
+  font-family:var(--font-mono);
+  margin-bottom:var(--s-4);
+}
+.score b{
+  font-weight:700;
+  font-size:clamp(2.6rem,9vw,7rem);
+  line-height:.9;
+  letter-spacing:-.02em;
+  color:var(--chalk);
+  font-variant-numeric:tabular-nums;
+  padding:.1em .06em .12em;
+  border-bottom:2px solid var(--brass);
+}
+.score b:last-child{ border-bottom-color:var(--line-2); }
+
+.score__unit{
+  color:var(--chalk-2);
+  font-size:clamp(.95rem,1.4vw,1.15rem);
+  letter-spacing:.02em;
+  margin-bottom:var(--s-5);
+}
+.score__unit strong{ color:var(--brass); font-weight:700; }
+
+/* 三行解读 */
+.read{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:var(--s-4);
+  margin-top:var(--s-6);
+  border-top:1px solid var(--line);
+  padding-top:var(--s-4);
+}
+.read div p:first-child{
+  font-family:var(--font-mono);
+  font-size:.76rem;
+  color:var(--brass);
+  letter-spacing:.06em;
+  margin-bottom:var(--s-2);
+}
+.read div p:last-child{
+  color:var(--chalk-2);
+  font-size:.94rem;
+  line-height:1.9;
+}
+.read b{ color:var(--chalk); font-weight:700; }
+
+/* ---------- 三 · 守 ---------- */
+.stall{
+  display:grid;
+  grid-template-columns:minmax(0,.95fr) minmax(0,1fr);
+  gap:var(--s-6);
+  align-items:center;
+}
+
+.stall__text h2{ margin-bottom:var(--s-3); }
+.stall__text .lede{ max-width:32ch; }
+
+.stall__meta{
+  margin-top:var(--s-5);
+  display:grid;
+  gap:var(--s-2);
+}
+.stall__meta p{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:var(--s-4);
+  align-items:baseline;
+  padding-block:var(--s-2);
+  border-bottom:1px solid var(--line-3);
+  font-size:.9rem;
+  color:var(--chalk-3);
+}
+.stall__meta b{
+  color:var(--chalk);
+  font-weight:400;
+  font-variant-numeric:tabular-nums;
+  text-align:right;
+}
+
+/* 摊子：一盏吊灯，一张铺了布的长桌，几摞货 */
+.booth{
+  position:relative;
+  aspect-ratio:5/4;
+  border-radius:8px;
+  overflow:hidden;
+  background:linear-gradient(180deg,var(--scene-d) 0%,var(--scene-a) 46%,var(--night) 100%);
+  border:1px solid var(--line);
+}
+/* 吊灯的光锥 */
+.booth__cone{
+  position:absolute;
+  left:50%; top:0;
+  width:76%;
+  height:82%;
+  margin-left:-38%;
+  clip-path:polygon(44% 0, 56% 0, 100% 100%, 0 100%);
+  background:linear-gradient(180deg, var(--lamp-a) 0%, var(--cone-2) 62%, transparent 100%);
+  pointer-events:none;
+}
+/* 灯泡 */
+.booth__bulb{
+  position:absolute;
+  left:50%; top:4%;
+  width:14px; height:20px;
+  margin-left:-7px;
+  border-radius:50% 50% 42% 42%;
+  background:radial-gradient(circle at 40% 34%, var(--bulb-hi), var(--brass-2) 58%, var(--brass-dim));
+  box-shadow:0 0 22px 8px var(--bulb-glow);
+}
+/* 电线 */
+.booth__wire{
+  position:absolute;
+  left:50%; top:0;
+  width:1px; height:4%;
+  background:var(--line-2);
+}
+
+/* 桌面：带一点透视的大梯形 */
+.booth__table{
+  position:absolute;
+  left:0; right:0;
+  bottom:0;
+  height:42%;
+  background:linear-gradient(180deg,var(--table-a) 0%,var(--table-b) 30%,var(--table-c) 100%);
+  border-top:2px solid var(--table-edge);
+  clip-path:polygon(2% 4%, 98% 4%, 100% 100%, 0 100%);
+}
+/* 台布：垂下来的一道褶 */
+.booth__cloth{
+  position:absolute;
+  left:0; right:0;
+  bottom:0;
+  height:30%;
+  background:repeating-linear-gradient(90deg,
+    var(--cloth-a) 0 14px,
+    var(--cloth-b) 14px 28px);
+  opacity:.55;
+  clip-path:polygon(4% 0, 96% 0, 100% 100%, 0 100%);
+}
+
+/* 桌上的货：一排，高低不齐，每摞有分层 */
+.booth__goods{
+  position:absolute;
+  left:6%; right:6%;
+  bottom:42%;
+  height:32%;
+  display:flex;
+  gap:3.4%;
+  align-items:flex-end;
+}
+.booth__goods i{
+  flex:1;
+  position:relative;
+  border-radius:1px;
+  background:linear-gradient(180deg,var(--brass-2) 0%,var(--brass) 42%,var(--brass-dim) 100%);
+  box-shadow:inset 0 -2px 0 var(--goods-sh-3), inset 0 2px 0 var(--goods-hi-2);
+}
+.booth__goods i::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:repeating-linear-gradient(0deg,
+    transparent 0 8px,
+    var(--goods-line-2) 8px 9px);
+}
+.booth__goods i:nth-child(1){ height:34%; }
+.booth__goods i:nth-child(2){ height:58%; }
+.booth__goods i:nth-child(3){ height:44%; }
+.booth__goods i:nth-child(4){ height:72%; }
+.booth__goods i:nth-child(5){ height:28%; }
+.booth__goods i:nth-child(6){ height:50%; }
+/* ---------- 四 · 敲 ---------- */
+.hit{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+.hit h2{ margin-bottom:var(--s-2); }
+.hit .lede{ max-width:30ch; }
+
+.pad{
+  all:unset;
+  position:relative;
+  display:block;
+  width:min(460px,86vw);
+  aspect-ratio:5/4;
+  margin-top:var(--s-6);
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  border-radius:10px;
+}
+.pad:focus-visible{ outline:2px solid var(--brass); outline-offset:10px; }
+.pad:active .pad__surface{ transform:scale(.985); }
+
+/* 鼓槌：从右上方落下来，槌头指着台面中心 */
+.pad__stick{
+  position:absolute;
+  top:-2%;
+  right:12%;
+  width:100px;
+  height:58%;
+  pointer-events:none;
+  z-index:3;
+  transform-origin:88% 8%;
+  transform:rotate(-19deg);
+  transition:transform .5s var(--ease);
+}
+/* 槌杆 */
+.pad__stick::before{
+  content:"";
+  position:absolute;
+  top:12px; right:10px;
+  width:4px;
+  height:calc(100% - 12px);
+  border-radius:3px;
+  background:linear-gradient(180deg,var(--stk-a),var(--stk-b) 44%,var(--stk-c));
+  transform-origin:top center;
+  transform:rotate(9deg);
+}
+/* 槌头 */
+.pad__stick::after{
+  content:"";
+  position:absolute;
+  top:0; right:0;
+  width:22px; height:30px;
+  border-radius:50% 50% 44% 44% / 58% 58% 42% 42%;
+  background:radial-gradient(circle at 38% 32%, var(--stk-hi), var(--stk-mid) 46%, var(--stk-lo) 100%);
+  box-shadow:0 4px 10px var(--stk-sh);
+}
+.pad.is-hit .pad__stick{ transform:rotate(6deg); }
+
+/* 台面：一块厚的木台，四面倒角 */
+.pad__surface{
+  position:absolute;
+  inset:20% 2% 6%;
+  border-radius:10px;
+  background:
+    linear-gradient(180deg, var(--surf-a) 0%, var(--surf-b) 44%, var(--surf-c) 100%);
+  box-shadow:
+    0 34px 60px -24px var(--surf-sh),
+    inset 0 2px 0 var(--surf-hi),
+    inset 0 -26px 44px -26px var(--surf-sh);
+  transition:transform .12s var(--ease);
+}
+/* 台面的木纹 */
+.pad__surface::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:10px;
+  background:repeating-linear-gradient(92deg,
+    var(--surf-grain) 0 2px,
+    transparent 2px 9px);
+  pointer-events:none;
+}
+/* 台面上那圈被敲过的痕 */
+.pad__surface::after{
+  content:"";
+  position:absolute;
+  left:50%; top:46%;
+  width:34%; aspect-ratio:1;
+  margin-left:-17%;
+  border-radius:50%;
+  border:1px dashed var(--surf-ring);
+  pointer-events:none;
+}
+
+/* 砸下去那一下的涟漪 */
+.pad__ring{
+  position:absolute;
+  left:50%; top:52%;
+  width:26%; aspect-ratio:1;
+  margin-left:-13%;
+  border-radius:50%;
+  border:2px solid var(--brass);
+  opacity:0;
+  pointer-events:none;
+  z-index:2;
+}
+.pad.is-hit .pad__ring{ animation:ring .72s var(--ease-soft) 1; }
+@keyframes ring{
+  0%  { transform:scale(.25); opacity:.85; }
+  100%{ transform:scale(2.4); opacity:0; }
+}
+
+.pad__label{
+  position:absolute;
+  left:0; right:0;
+  bottom:0;
+  font-size:.78rem;
+  letter-spacing:0;
+  color:var(--chalk-3);
+  pointer-events:none;
+  z-index:2;
+  transform:translateY(calc(100% + 8px));
+}
+/* ---------- 五 · 信 ---------- */
+.mail{
+  border-top:1px solid var(--line);
+  padding-top:var(--s-7);
+}
+.mail h2{ margin-bottom:var(--s-5); }
+
+.mail p{
+  color:var(--chalk-2);
+  font-size:clamp(.95rem,.7vw + .8rem,1.06rem);
+  line-height:2.05;
+  margin-bottom:1.05em;
+  max-width:36em;
+}
+.mail p strong{ color:var(--chalk); font-weight:700; }
+
+.sign{
+  margin-top:var(--s-6);
+  color:var(--chalk);
+  font-weight:700;
+  font-size:clamp(1rem,1.2vw + .6rem,1.2rem);
+  letter-spacing:.01em;
+}
+.sign span{
+  display:block;
+  margin-top:var(--s-2);
+  color:var(--lacquer-lt);
+  font-weight:700;
+  font-size:clamp(1.05rem,1.5vw + .6rem,1.35rem);
+}
+
+footer{
+  padding:var(--s-6) 0 var(--s-5);
+  color:var(--chalk-3);
+  font-family:var(--font-mono);
+  font-size:.72rem;
+  letter-spacing:.16em;
+  position:relative;
+  z-index:2;
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding-inline:var(--gutter);
+}
+
+/* ---------- 入场 ---------- */
+html.js .reveal{
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity .9s var(--ease), transform .9s var(--ease);
+  transition-delay:var(--d,0ms);
+}
+html.js .reveal.in{ opacity:1; transform:none; }
+
+/* ---------- 响应式 ---------- */
+@media (max-width:860px){
+  .stall{ grid-template-columns:1fr; gap:var(--s-5); }
+  .booth{ order:-1; }
+}
+
+@media (max-width:640px){
+  .hero{
+    grid-template-columns:1fr;
+    align-items:start;
+    gap:var(--s-5);
+    min-height:auto;
+    padding-block:var(--s-5);
+  }
+  .metro{
+    width:70px;
+    height:120px;
+    justify-self:end;
+    margin-top:calc(var(--s-5) * -1);
+  }
+  h1{ font-size:clamp(2.1rem,11vw,3.2rem); }
+  .score b{ font-size:clamp(2.2rem,15vw,3.4rem); }
+  .read{ grid-template-columns:1fr; gap:var(--s-3); }
+  .pad__stick{ right:12%; height:46%; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  html.js .reveal{ opacity:1 !important; transform:none !important; }
+}
+</style>
+</head>
+<body>
+
+<main>
+
+  <!-- ============ 一 · 题 ============ -->
+  <header class="hero">
+    <div class="hero__left">
+      <div class="beats" aria-hidden="true">
+        <i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i>
+      </div>
+
+      <p class="hero__sig reveal">4/4 &nbsp;·&nbsp; ♩ = 72</p>
+      <h1 class="reveal">老爸，<br><em>生日快乐</em></h1>
+
+      <div class="hero__who reveal" style="--d:120ms">
+        <span>李新顺</span>
+        <span>四十一岁</span>
+        <span>十一月二十日</span>
+      </div>
+    </div>
+
+    <div class="metro reveal" style="--d:200ms" aria-hidden="true">
+      <span class="metro__arm" id="metroArm">
+        <span class="metro__bob" id="metroBob"></span>
+      </span>
+      <span class="metro__base"></span>
+    </div>
+  </header>
+
+  <!-- ============ 二 · 节拍 ============ -->
+  <section class="bars" aria-labelledby="bars-h">
+    <div class="bars__head reveal">
+      <h2 id="bars-h">先数一数节拍</h2>
+      <p class="lede">你从一九八五年十一月二十日走到今天。</p>
+    </div>
+
+    <div class="score reveal" style="--d:90ms" aria-label="一万四千九百七十一">
+      <b>1</b><b>4</b><b>9</b><b>7</b><b>1</b>
+    </div>
+
+    <p class="score__unit reveal" style="--d:150ms">
+      <strong id="daysNum">14,971</strong> 天。一天一拍，这就是你打过的拍子。
+    </p>
+
+    <div class="read">
+      <div class="reveal" style="--d:0ms">
+        <p>拍 / Bar</p>
+        <p>一天一拍，四拍一小节。<br>你打过 <b>三千七百四十二</b> 个小节。</p>
+      </div>
+      <div class="reveal" style="--d:90ms">
+        <p>守 / Hold</p>
+        <p>从二〇一八年秋天起，<br>你在这条街上守了 <b>八年</b>。</p>
+      </div>
+      <div class="reveal" style="--d:180ms">
+        <p>槌 / Stick</p>
+        <p>十八岁想学鼓，到今天 <b>二十三年</b>。<br>这口劲你一直没松。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 三 · 守 ============ -->
+  <section class="stall" aria-labelledby="stall-h">
+    <div class="stall__text reveal">
+      <h2 id="stall-h">这条街上的第八年</h2>
+      <p class="lede">二〇一八年秋天，你在阿克苏摆起了摊。后来有了这家小店，一直开到今天。</p>
+
+      <div class="stall__meta">
+        <p><span>从邵东到阿克苏</span><b>三千二百五十六公里</b></p>
+        <p><span>摆摊到现在</span><b>八年</b></p>
+        <p><span>一年开门</span><b>三百多天</b></p>
+        <p><span>称呼</span><b>老爸 · 李老板</b></p>
+      </div>
+    </div>
+
+    <div class="booth reveal" style="--d:120ms" role="img"
+         aria-label="夜里的摊位：一盏灯照着台面和几摞货，后面一把椅子">
+      <span class="booth__cone" aria-hidden="true"></span>
+      <span class="booth__wire" aria-hidden="true"></span>
+      <span class="booth__bulb" aria-hidden="true"></span>
+      <span class="booth__table" aria-hidden="true"></span>
+      <span class="booth__cloth" aria-hidden="true"></span>
+      <span class="booth__goods" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    </div>
+  </section>
+
+  <!-- ============ 四 · 敲 ============ -->
+  <section class="hit" aria-labelledby="hit-h">
+    <h2 id="hit-h" class="reveal">敲一下</h2>
+    <p class="lede reveal" style="--d:80ms">你敲了几十年台面，一直没敲过鼓。这一下算补给你。</p>
+
+    <button class="pad reveal" id="pad" type="button" style="--d:160ms"
+            aria-label="敲一下台面">
+      <span class="pad__stick" aria-hidden="true"></span>
+      <span class="pad__surface" aria-hidden="true"></span>
+      <span class="pad__ring" aria-hidden="true"></span>
+      <span class="pad__label" aria-hidden="true">敲一下</span>
+    </button>
+
+    <p class="hit__after reveal" style="--d:220ms">
+      台面不出声。鼓会出声。<br>
+      <strong>但你敲下去的那一下，是同一下。</strong>
+    </p>
+  </section>
+
+  <!-- ============ 五 · 信 ============ -->
+  <section class="mail" aria-labelledby="mail-h">
+    <h2 id="mail-h" class="reveal">老爸</h2>
+
+    <p class="reveal" style="--d:60ms">从邵东到阿克苏，三千多公里。你在那条街上守了八年，一年开三百多天。我小时候以为开店是件轻松事，坐在那儿，人来人往。</p>
+
+    <p class="reveal" style="--d:110ms">后来才知道，坐着也是力气活。冬天冷，夏天热，一天里大部分时间没人来，你还是坐在那儿。</p>
+
+    <p class="reveal" style="--d:160ms">你说过想学架子鼓，一直没机会。这么多年，你敲的都是台面。台面不出声，你也没抱怨过。</p>
+
+    <p class="reveal" style="--d:210ms"><strong>四十一岁生日快乐。</strong></p>
+
+    <p class="sign reveal" style="--d:260ms">
+      你的孩子
+      <span>李老板，今天歇一天行不行</span>
+    </p>
+  </section>
+
+  <footer>4/4 · 李新顺 · 二〇二六年十一月二十日</footer>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  document.documentElement.classList.add('js');
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 入场 */
+  var reveals = document.querySelectorAll('.reveal');
+  if (reduced || !('IntersectionObserver' in window)) {
+    reveals.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: .15, rootMargin: '0px 0px -8% 0px' });
+    reveals.forEach(function (el) { io.observe(el); });
+  }
+
+  /* 节拍器：72 bpm 摆，越到后面越慢（累了一天） */
+  var arm = document.getElementById('metroArm');
+  var bob = document.getElementById('metroBob');
+
+  if (arm && !reduced) {
+    var BPM = 72;
+    var half = 60000 / BPM;          // 一个来回的一半
+    var t0 = performance.now();
+    var swing = 1;
+
+    (function tick(now) {
+      var el = (now - t0) % (half * 2);
+      var p = el < half ? el / half : 2 - el / half;
+      var eased = p * p * (3 - 2 * p);       // smoothstep，两头慢中间快
+      var deg = -11 + eased * 22;
+      arm.style.transform = 'translateX(-50%) rotate(' + deg.toFixed(2) + 'deg)';
+      if (bob) bob.style.bottom = (18 + eased * 56) + '%';
+      swing = -swing;
+      requestAnimationFrame(tick);
+    })(t0);
+  } else if (arm) {
+    arm.style.transform = 'translateX(-50%) rotate(0deg)';
+  }
+
+  /* 敲一下 */
+  var pad = document.getElementById('pad');
+  var hitTimer = 0;
+
+  function strike() {
+    pad.classList.remove('is-hit');
+    // 重排一次，动画才能连续触发
+    void pad.offsetWidth;
+    pad.classList.add('is-hit');
+    clearTimeout(hitTimer);
+    hitTimer = setTimeout(function () { pad.classList.remove('is-hit'); }, 760);
+  }
+
+  pad.addEventListener('click', strike);
+
+  /* 节拍数字：入场时从 0 数到 14,971 */
+  var daysNum = document.getElementById('daysNum');
+  var target = 14971;
+  var counted = false;
+
+  function group(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+
+  function countUp() {
+    if (reduced) { daysNum.textContent = group(target); return; }
+    var t0 = performance.now(), dur = 1400;
+    (function step(t) {
+      var p = Math.min((t - t0) / dur, 1);
+      daysNum.textContent = group(Math.round(target * (1 - Math.pow(1 - p, 4))));
+      if (p < 1) requestAnimationFrame(step);
+      else daysNum.textContent = group(target);
+    })(t0);
+  }
+
+  var numObs = daysNum && 'IntersectionObserver' in window
+    ? new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (e.isIntersecting && !counted) { counted = true; countUp(); numObs.disconnect(); }
+        });
+      }, { threshold: .4 })
+    : null;
+  if (numObs) numObs.observe(daysNum);
+})();
+</script>
+</body>
+</html>
