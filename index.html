@@ -652,6 +652,28 @@ h1 em{
   z-index:2;
   transform:translateY(calc(100% + 8px));
 }
+/* 静音开关 */
+.mute{
+  all:unset;
+  cursor:pointer;
+  margin-top:var(--s-5);
+  padding:var(--s-1) var(--s-3);
+  border:1px solid var(--line-2);
+  border-radius:999px;
+  font-family:var(--font-sans);
+  font-size:.78rem;
+  letter-spacing:0;
+  color:var(--chalk-3);
+  transition:color .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
+  -webkit-tap-highlight-color:transparent;
+}
+.mute:hover{ color:var(--chalk); border-color:var(--brass-dim); }
+.mute:active{ transform:scale(.98); }
+.mute:focus-visible{ outline:2px solid var(--brass); outline-offset:4px; }
+.mute__off{ display:none; }
+.mute[aria-pressed="true"]{ color:var(--chalk-2); border-color:var(--line); }
+.mute[aria-pressed="true"] .mute__on{ display:none; }
+.mute[aria-pressed="true"] .mute__off{ display:inline; }
 /* ---------- 五 · 信 ---------- */
 .mail{
   border-top:1px solid var(--line);
@@ -839,12 +861,17 @@ html.js .reveal.in{ opacity:1; transform:none; }
       <span class="pad__stick" aria-hidden="true"></span>
       <span class="pad__surface" aria-hidden="true"></span>
       <span class="pad__ring" aria-hidden="true"></span>
-      <span class="pad__label" aria-hidden="true">敲一下</span>
+      <span class="pad__label" aria-hidden="true">敲一下 · 有声</span>
     </button>
 
-    <p class="hit__after reveal" style="--d:220ms">
-      台面不出声。鼓会出声。<br>
-      <strong>但你敲下去的那一下，是同一下。</strong>
+    <button class="mute reveal" id="mute" type="button" aria-pressed="false"
+            style="--d:260ms" aria-label="关闭鼓声">
+      <span class="mute__on" aria-hidden="true">声音 开</span>
+      <span class="mute__off" aria-hidden="true">声音 关</span>
+    </button>
+    <p class="hit__after reveal" style="--d:280ms">
+      这一次，它出声了。<br>
+      <strong>和你敲了几十年的那一下，是同一下。</strong>
     </p>
   </section>
 
@@ -856,7 +883,7 @@ html.js .reveal.in{ opacity:1; transform:none; }
 
     <p class="reveal" style="--d:110ms">后来才知道，坐着也是力气活。冬天冷，夏天热，一天里大部分时间没人来，你还是坐在那儿。</p>
 
-    <p class="reveal" style="--d:160ms">你说过想学架子鼓，一直没机会。这么多年，你敲的都是台面。台面不出声，你也没抱怨过。</p>
+    <p class="reveal" style="--d:160ms">你说过想学架子鼓，一直没机会。这么多年，你敲的都是台面，没敲过鼓。</p>
 
     <p class="reveal" style="--d:210ms"><strong>四十一岁生日快乐。</strong></p>
 
@@ -917,6 +944,92 @@ html.js .reveal.in{ opacity:1; transform:none; }
   var pad = document.getElementById('pad');
   var hitTimer = 0;
 
+  /* ------- 鼓声：现场合成，不加载音频文件 ------- */
+  var AC = window.AudioContext || window.webkitAudioContext;
+  var actx = null, master = null, muted = false;
+
+  function audioReady() {
+    if (!AC) return null;
+    if (!actx) {
+      actx = new AC();
+      master = actx.createGain();
+      master.gain.value = 0.62;               // 总音量，别吓着人
+      master.connect(actx.destination);
+    }
+    if (actx.state === 'suspended') actx.resume();
+    return actx;
+  }
+
+  function noiseBurst(ac, at, dur, freq, q, vol) {
+    var len = Math.max(1, Math.floor(ac.sampleRate * dur));
+    var buf = ac.createBuffer(1, len, ac.sampleRate);
+    var d = buf.getChannelData(0);
+    for (var i = 0; i < len; i++) {
+      // 平方衰减，收得干净
+      d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6);
+    }
+    var src = ac.createBufferSource();
+    src.buffer = buf;
+    var bp = ac.createBiquadFilter();
+    bp.type = 'bandpass';
+    bp.frequency.value = freq;
+    bp.Q.value = q;
+    var g = ac.createGain();
+    g.gain.setValueAtTime(vol, at);
+    g.gain.exponentialRampToValueAtTime(0.0008, at + dur);
+    src.connect(bp); bp.connect(g); g.connect(master);
+    src.start(at);
+    src.stop(at + dur + 0.02);
+  }
+
+  function drumHit() {
+    if (muted) return;
+    var ac = audioReady();
+    if (!ac) return;
+    var t = ac.currentTime + 0.001;
+
+    /* 鼓体：低频下滑，这是“咚” */
+    var osc = ac.createOscillator();
+    var g1 = ac.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(178, t);
+    osc.frequency.exponentialRampToValueAtTime(52, t + 0.11);
+    g1.gain.setValueAtTime(0.95, t);
+    g1.gain.exponentialRampToValueAtTime(0.0008, t + 0.34);
+    osc.connect(g1); g1.connect(master);
+    osc.start(t);
+    osc.stop(t + 0.36);
+
+    /* 倍频一击，让鼓皮有“脆”的芯 */
+    var o2 = ac.createOscillator();
+    var g2 = ac.createGain();
+    o2.type = 'triangle';
+    o2.frequency.setValueAtTime(320, t);
+    o2.frequency.exponentialRampToValueAtTime(120, t + 0.06);
+    g2.gain.setValueAtTime(0.30, t);
+    g2.gain.exponentialRampToValueAtTime(0.0008, t + 0.10);
+    o2.connect(g2); g2.connect(master);
+    o2.start(t);
+    o2.stop(t + 0.11);
+
+    /* 鼓皮的“啪”：两段噪声，高频一段短、中频一段略长 */
+    noiseBurst(ac, t, 0.085, 3200, 0.7, 0.52);
+    noiseBurst(ac, t + 0.004, 0.20, 1100, 1.1, 0.30);
+
+    /* 一点点余响，像屋里有回声 */
+    var o3 = ac.createOscillator();
+    var g3 = ac.createGain();
+    o3.type = 'sine';
+    o3.frequency.setValueAtTime(78, t + 0.02);
+    o3.frequency.exponentialRampToValueAtTime(46, t + 0.28);
+    g3.gain.setValueAtTime(0.001, t);
+    g3.gain.linearRampToValueAtTime(0.16, t + 0.03);
+    g3.gain.exponentialRampToValueAtTime(0.0008, t + 0.55);
+    o3.connect(g3); g3.connect(master);
+    o3.start(t);
+    o3.stop(t + 0.57);
+  }
+
   function strike() {
     pad.classList.remove('is-hit');
     // 重排一次，动画才能连续触发
@@ -924,9 +1037,25 @@ html.js .reveal.in{ opacity:1; transform:none; }
     pad.classList.add('is-hit');
     clearTimeout(hitTimer);
     hitTimer = setTimeout(function () { pad.classList.remove('is-hit'); }, 760);
+    drumHit();
   }
 
+  /* 静音开关 */
+  var muteBtn = document.getElementById('mute');
+  if (muteBtn) {
+    muteBtn.addEventListener('click', function () {
+      muted = !muted;
+      muteBtn.setAttribute('aria-pressed', muted ? 'true' : 'false');
+      muteBtn.setAttribute('aria-label', muted ? '打开鼓声' : '关闭鼓声');
+      if (master) master.gain.value = muted ? 0 : 0.62;
+      if (!muted) audioReady();          // 重新开声时解锁一次
+    });
+  }
   pad.addEventListener('click', strike);
+  // 键盘回车/空格也能敲
+  pad.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); strike(); }
+  });
 
   /* 节拍数字：入场时从 0 数到 14,971 */
   var daysNum = document.getElementById('daysNum');
